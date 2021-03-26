@@ -1,13 +1,13 @@
 import React from 'react';
 import Button from '../Button';
 
-const Controls = ({ handleIncrement, handleDecrement }) => (
+const Controls = ({ step, handleIncrement, handleDecrement }) => (
   <>
     <Button type="button" onClick={handleIncrement}>
-      increment by 1
+      increment by {step}
     </Button>
     <Button type="button" onClick={handleDecrement}>
-      decrement by 1
+      decrement by {step}
     </Button>
   </>
 );

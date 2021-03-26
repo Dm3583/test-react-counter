@@ -3,27 +3,31 @@ import { connect } from 'react-redux';
 import Controls from '../Controls';
 import * as actions from '../../redux/actions';
 
-const Counter = ({ value, onIncrement, onDecrement }) => {
+const Counter = ({ value, step, onIncrement, onDecrement }) => {
   return (
     <>
-      <h1>Counter body</h1>
-
+      <h1>Counter</h1>
       <p>{value}</p>
-      <Controls handleIncrement={onIncrement} handleDecrement={onDecrement} />
+      <Controls
+        step={step}
+        handleIncrement={() => onIncrement(step)}
+        handleDecrement={() => onDecrement(step)}
+      />
     </>
   );
 };
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    value: state.counterValue,
+    value: state.counter.value,
+    step: state.counter.step,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onIncrement: () => dispatch(actions.increment(1)),
-    onDecrement: () => dispatch(actions.decrement(1)),
+    onIncrement: value => dispatch(actions.increment(value)),
+    onDecrement: value => dispatch(actions.decrement(value)),
   };
 };
 
