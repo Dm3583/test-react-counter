@@ -1,43 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Controls from '../Controls';
+import * as actions from '../../redux/actions';
 
-class Counter extends Component {
-  state = {
-    step: 1,
-    value: 0,
+const Counter = ({ value, onIncrement, onDecrement }) => {
+  return (
+    <>
+      <h1>Counter body</h1>
+
+      <p>{value}</p>
+      <Controls handleIncrement={onIncrement} handleDecrement={onDecrement} />
+    </>
+  );
+};
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    value: state.counterValue,
   };
+};
 
-  increment = () => {
-    this.setState(({ step, value }) => ({ value: value + step }));
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onIncrement: () => dispatch(actions.increment(1)),
+    onDecrement: () => dispatch(actions.decrement(1)),
   };
+};
 
-  decrement = () => {
-    this.setState(({ step, value }) => ({ value: value - step }));
-  };
-
-  handleIncrement = () => {
-    this.increment();
-  };
-
-  handleDecrement = () => {
-    this.decrement();
-  };
-
-  render() {
-    const { step, value } = this.state;
-    const { handleIncrement, handleDecrement } = this;
-    return (
-      <>
-        <h1>Counter body</h1>
-        <p>{value}</p>
-        <Controls
-          step={step}
-          handleIncrement={handleIncrement}
-          handleDecrement={handleDecrement}
-        />
-      </>
-    );
-  }
-}
-
-export default Counter;
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);

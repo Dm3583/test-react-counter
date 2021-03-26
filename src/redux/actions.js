@@ -1,13 +1,13 @@
 export const increment = value => {
   return {
-    type: 'increment',
+    type: 'counter/Increment',
     payload: value,
   };
 };
 
-export const decrement = () => {
+export const decrement = value => {
   return {
-    type: 'decrement',
-    payload: '-1',
+    type: 'counter/Decrement',
+    payload: value,
   };
 };
